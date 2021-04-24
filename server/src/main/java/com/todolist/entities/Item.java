@@ -24,6 +24,12 @@ public class Item {
 		this.setCompleted(completed);
 	}
 
+	public Item(String itemName, boolean completed, Folder folder) {
+		this.setItemName(itemName);
+		this.setCompleted(completed);
+		this.setFolder(folder);
+	}
+	
 	public String getItemName() {
 		return itemName;
 	}
@@ -40,6 +46,12 @@ public class Item {
 		this.completed = completed;
 	}
 
-	
+	public Folder getFolder() {
+		return folder;
+	}
+
+	public void setFolder(Folder folder) {
+		this.folder = folder;
+	}
 
 }
