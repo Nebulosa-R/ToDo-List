@@ -9,10 +9,11 @@ public class Item {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String itemName;  
-    
     private boolean completed;
+    @ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="folder_id")
+    private Folder folder;
 
 	public Item() {
 		// TODO Auto-generated constructor stub
