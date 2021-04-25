@@ -41,6 +41,6 @@ public class ItemService {
 
 	public ItemDto getItemDtoById(Long id) {
 		Item item = itemRepository.findById(id).get();
-		return new ItemDto(item.getItemName(),item.isCompleted(), item.getFolder().getId()); 
+		return new ItemDto(item.getItemName(),item.isCompleted(), item.getFolder().getId(), item.getId()); 
 	}
 }

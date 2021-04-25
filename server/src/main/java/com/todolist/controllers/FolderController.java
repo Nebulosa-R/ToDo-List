@@ -1,5 +1,6 @@
 package com.todolist.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,11 +28,12 @@ public class FolderController {
     FolderService folderService;
 
     @GetMapping("/list")
-    public ResponseEntity<List<Folder>> getList(){
+    public ResponseEntity<List<FolderDto>> getList(){
         List<Folder> lista = folderService.getList();
+        List<FolderDto> folders = new ArrayList<FolderDto>();
         for(Folder folder: lista)
-        	folder.setItems(null);
-        return new ResponseEntity<List<Folder>>(lista, HttpStatus.OK);
+        	folders.add(folderService.getFolderDtoById(folder.getId()));
+        return new ResponseEntity<List<FolderDto>>(folders, HttpStatus.OK);
     }
     
 	@PostMapping("/add")
@@ -45,15 +47,15 @@ public class FolderController {
     
     
     @GetMapping("/detail/{id}")
-    public ResponseEntity<Folder> get(@PathVariable Long id){
+    public ResponseEntity<FolderDto> get(@PathVariable Long id){
         if(!folderService.existsFolderById(id))
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        //FolderDto folder = folderService.getFolderDtoById(id);         		
-        return new ResponseEntity<Folder>(folderService.getFolderById(id).get(), HttpStatus.OK);
+             		
+        return new ResponseEntity<FolderDto>(folderService.getFolderDtoById(id), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Folder> get(@RequestBody Folder folder, @PathVariable("id") Long id){
+    public ResponseEntity<FolderDto> get(@RequestBody Folder folder, @PathVariable("id") Long id){
         if(!folderService.existsFolderById(id))
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         if(StringUtils.isBlank(folder.getFolderName()))
@@ -63,7 +65,7 @@ public class FolderController {
         newFolder.setFolderName(folder.getFolderName());
         
         folderService.saveFolder(newFolder);
-        return new ResponseEntity<Folder>(folderService.getFolderById(id).get(), HttpStatus.OK);
+        return new ResponseEntity<FolderDto>(folderService.getFolderDtoById(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

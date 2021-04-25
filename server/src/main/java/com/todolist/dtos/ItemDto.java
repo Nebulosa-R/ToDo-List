@@ -2,6 +2,7 @@ package com.todolist.dtos;
 
 public class ItemDto {
 	
+	private Long id;
 	private String itemName;  
     private boolean completed;
     private Long folder_id;
@@ -15,10 +16,11 @@ public class ItemDto {
 		this.setCompleted(completed);
 	}
 	
-	public ItemDto(String itemName, boolean completed, Long folder_id) {
+	public ItemDto(String itemName, boolean completed, Long folder_id, Long id) {
 		this.setItemName(itemName);
 		this.setCompleted(completed);
-		this.setFolder_id(folder_id);
+		this.folder_id = folder_id;
+		this.id = id;
 	}
 	
 	public String getItemName() {
@@ -41,8 +43,8 @@ public class ItemDto {
 		return folder_id;
 	}
 
-	public void setFolder_id(Long folder_id) {
-		this.folder_id = folder_id;
+	public Long getId() {
+		return id;
 	}
 
 }

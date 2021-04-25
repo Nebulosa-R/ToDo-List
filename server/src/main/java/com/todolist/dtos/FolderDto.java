@@ -4,6 +4,7 @@ import java.util.List;
 
 public class FolderDto {
 	
+	private Long id;
 	private String folderName;
     private List<ItemDto> items;
 
@@ -12,7 +13,8 @@ public class FolderDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public FolderDto(String folderName, List<ItemDto> items) {
+	public FolderDto(Long id, String folderName, List<ItemDto> items) {
+		this.id = id;
 		this.setFolderName(folderName);
 		this.setItems(items);
 	}
@@ -35,6 +37,10 @@ public class FolderDto {
 
 	public void setItems(List<ItemDto> items) {
 		this.items = items;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 }
