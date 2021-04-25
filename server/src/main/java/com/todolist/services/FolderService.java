@@ -37,17 +37,21 @@ public class FolderService {
 	}
 	
 	public Optional<Folder> getFolderById(Long id) {
-		return folderRepository.findById(id);
+		Optional<Folder> folder = folderRepository.findById(id);
+		for(Item item: folder.get().getItems()) 
+			item.setFolder(null);
+		return folder;
 	}
 
-	public FolderDto getFolderDtoById(Long id) {
+	/*public FolderDto getFolderDtoById(Long id) {
 		Folder folder = folderRepository.findById(id).get();
-		List<ItemDto> items = new ArrayList<ItemDto>();
+		//List<ItemDto> items = new ArrayList<ItemDto>();
 		for(Item item: folder.getItems()) {
-			items.add(new ItemDto(item.getItemName(), item.isCompleted()));
+			item.setFolder(null);
+			//items.add(new ItemDto(item.getItemName(), item.isCompleted()));
 		}
-		FolderDto folderDto = new FolderDto(folder.getFolderName(), items);
+		//FolderDto folderDto = new FolderDto(folder.getFolderName(), items);
 		return folderDto;
-	}
+	}*/
 
 }

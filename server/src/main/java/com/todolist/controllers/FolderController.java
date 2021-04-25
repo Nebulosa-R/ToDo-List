@@ -38,20 +38,18 @@ public class FolderController {
     public ResponseEntity<?> create(@RequestBody Folder folder){
     	if(StringUtils.isBlank(folder.getFolderName()))
     		return new ResponseEntity(HttpStatus.BAD_REQUEST);
-    	//folder.setItems(null);  //item list is null for default
+    	
     	folderService.saveFolder(folder);
         return new ResponseEntity(HttpStatus.CREATED);
     }
     
     
     @GetMapping("/detail/{id}")
-    public ResponseEntity<FolderDto> get(@PathVariable Long id){
+    public ResponseEntity<Folder> get(@PathVariable Long id){
         if(!folderService.existsFolderById(id))
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        //folderService.getFolderById(id).get(), 
-        FolderDto folder = folderService.getFolderDtoById(id); 
-        		
-        return new ResponseEntity<FolderDto>(folder, HttpStatus.OK);
+        //FolderDto folder = folderService.getFolderDtoById(id);         		
+        return new ResponseEntity<Folder>(folderService.getFolderById(id).get(), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")

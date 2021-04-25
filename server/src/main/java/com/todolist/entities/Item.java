@@ -54,4 +54,8 @@ public class Item {
 		this.folder = folder;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 }

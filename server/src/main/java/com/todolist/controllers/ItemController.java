@@ -26,11 +26,11 @@ public class ItemController {
 	@Autowired
     FolderService folderService;
 
-    @GetMapping("/list")
-    private ResponseEntity<List<Item>> getList(){
+    /*@GetMapping("/list")
+    public ResponseEntity<List<Item>> getList(){
         List<Item> lista = itemService.getList();
         return new ResponseEntity<List<Item>>(lista, HttpStatus.OK);
-    }
+    }*/
     
     @SuppressWarnings("rawtypes")
 	@PostMapping("/add")
