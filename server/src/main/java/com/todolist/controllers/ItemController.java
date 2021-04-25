@@ -53,13 +53,12 @@ public class ItemController {
     public ResponseEntity<ItemDto> get(@PathVariable Long id){
         if(!itemService.existsItemById(id))
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        //Item item = itemService.getItemById(id).get();
         ItemDto item = itemService.getItemDtoById(id);
         return new ResponseEntity<ItemDto>(item, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Item> get(@RequestBody Item item, @PathVariable("id") Long id){
+    public ResponseEntity<ItemDto> get(@RequestBody Item item, @PathVariable("id") Long id){
         if(!itemService.existsItemById(id))
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         if(StringUtils.isBlank(item.getItemName()))
@@ -68,9 +67,8 @@ public class ItemController {
         Item newItem = itemService.getItemById(id).get();
         newItem.setItemName(item.getItemName());
         newItem.setCompleted(item.isCompleted());
-        
         itemService.saveItem(newItem);
-        return new ResponseEntity<Item>(itemService.getItemById(id).get(), HttpStatus.OK);
+        return new ResponseEntity<ItemDto>(itemService.getItemDtoById(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
