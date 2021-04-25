@@ -39,4 +39,8 @@ public class Folder {
 		this.items = items;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.todolist.dtos.FolderDto;
 import com.todolist.entities.Folder;
 import com.todolist.services.FolderService;
 
@@ -28,6 +29,8 @@ public class FolderController {
     @GetMapping("/list")
     public ResponseEntity<List<Folder>> getList(){
         List<Folder> lista = folderService.getList();
+        for(Folder folder: lista)
+        	folder.setItems(null);
         return new ResponseEntity<List<Folder>>(lista, HttpStatus.OK);
     }
     
@@ -42,10 +45,13 @@ public class FolderController {
     
     
     @GetMapping("/detail/{id}")
-    public ResponseEntity<Folder> get(@PathVariable Long id){
+    public ResponseEntity<FolderDto> get(@PathVariable Long id){
         if(!folderService.existsFolderById(id))
             return new ResponseEntity(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<Folder>(folderService.getFolderById(id).get(), HttpStatus.OK);
+        //folderService.getFolderById(id).get(), 
+        FolderDto folder = folderService.getFolderDtoById(id); 
+        		
+        return new ResponseEntity<FolderDto>(folder, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
@@ -70,6 +76,5 @@ public class FolderController {
         folderService.deleteFolder(id);
         return new ResponseEntity(HttpStatus.OK);
     }
-
-
+    
 }

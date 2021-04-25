@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.todolist.dtos.ItemDto;
+import com.todolist.entities.Folder;
 import com.todolist.entities.Item;
 import com.todolist.repositories.ItemRepository;
 
@@ -35,5 +37,10 @@ public class ItemService {
 	
 	public Optional<Item> getItemById(Long id) {
 		return itemRepository.findById(id);
+	}
+
+	public ItemDto getItemDtoById(Long id) {
+		Item item = itemRepository.findById(id).get();
+		return new ItemDto(item.getItemName(),item.isCompleted());
 	}
 }
