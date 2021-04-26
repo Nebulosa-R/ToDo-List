@@ -37,12 +37,12 @@ public class FolderController {
     }
     
 	@PostMapping("/add")
-    public ResponseEntity<?> create(@RequestBody Folder folder){
+    public ResponseEntity<Folder> create(@RequestBody Folder folder){
     	if(StringUtils.isBlank(folder.getFolderName()))
     		return new ResponseEntity(HttpStatus.BAD_REQUEST);
     	
     	folderService.saveFolder(folder);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<Folder>(folder ,HttpStatus.CREATED);
     }
     
     
